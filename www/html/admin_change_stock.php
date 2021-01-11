@@ -17,10 +17,10 @@ $user = get_login_user($db);
 if(is_admin($user) === false){
   redirect_to(LOGIN_URL);
 }
-
+//$_POSTを取得
 $item_id = get_post('item_id');
 $stock = get_post('stock');
-
+//在庫数を変更する
 if(update_item_stock($db, $item_id, $stock)){
   set_message('在庫数を変更しました。');
 } else {
