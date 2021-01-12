@@ -20,7 +20,8 @@ if(is_admin($user) === false){
 //$_POSTを取得
 $item_id = get_post('item_id');
 $stock = get_post('stock');
-//在庫数を変更する
+
+//在庫数を変更する　1月12日item.php106にis_valid_item_price($stock)を挿入
 if(update_item_stock($db, $item_id, $stock)){
   set_message('在庫数を変更しました。');
 } else {

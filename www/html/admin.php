@@ -19,4 +19,9 @@ if(is_admin($user) === false){
 }
 //itemsテーブルから商品の情報を取得
 $items = get_all_items($db);
+//html変換
+$items=h($items);
+//タグ除去
+$items=strip_tag($items);
+var_dump($items);
 include_once VIEW_PATH . '/admin_view.php';

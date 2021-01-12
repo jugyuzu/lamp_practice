@@ -103,6 +103,7 @@ function update_item_status($db, $item_id, $status){
 }
 
 function update_item_stock($db, $item_id, $stock){
+  if(is_valid_item_price($stock) !== FALSE){
   $sql = "
     UPDATE
       items
@@ -114,6 +115,7 @@ function update_item_stock($db, $item_id, $stock){
   ";
   
   return execute_query($db, $sql);
+  }
 }
 
 function destroy_item($db, $item_id){
