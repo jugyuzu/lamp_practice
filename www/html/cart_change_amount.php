@@ -13,7 +13,7 @@ if(is_logined() === false){
 
 $db = get_db_connect();
 $user = get_login_user($db);
-
+//cart_idとamoutをpostで取得
 $cart_id = get_post('cart_id');
 $amount = get_post('amount');
 
