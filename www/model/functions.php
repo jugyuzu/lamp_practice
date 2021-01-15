@@ -153,14 +153,15 @@ function strip_tag($str){
 }
 
 function escape($items){
-  foreach($items as $key=>$value){
-    if($key === "status"){
-      $items[$key]=$value;
-    }else if(is_array($value)){
-      $items[$key]=escape($value);
-    }else{
-      $items[$key]=htmlspecialchars($value,ENT_QUOTES,'UTF-8');
+  foreach($items as $item){
+    foreach($item as $key => $value){
+      if($key === "status"){
+        $item[$key]=$value;
+      }else {
+        $item[$key]=htmlspecialchars($value,ENT_QUOTES,'UTF-8');
+      }
     }
+    $item_array[]=$item;
   }
-  return $items;
+  return $item_array;
 }
