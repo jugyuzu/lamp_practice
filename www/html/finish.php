@@ -15,7 +15,7 @@ $db = get_db_connect();
 $user = get_login_user($db);
 
 $carts = get_user_carts($db, $user['user_id']);
-//カートに商品が入っているか確認,idと　stock-amountした数をitemsでupdate
+
 if(purchase_carts($db, $carts) === false){
   set_error('商品が購入できませんでした。');
   redirect_to(CART_URL);

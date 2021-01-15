@@ -21,10 +21,9 @@ function get_user_carts($db, $user_id){
     ON
       carts.item_id = items.item_id
     WHERE
-      carts.user_id = :user_id
+      carts.user_id = {$user_id}
   ";
-  $params=['user_id'=>$user_id];
-  return fetch_all_query($db, $sql, $params);
+  return fetch_all_query($db, $sql);
 }
 
 function get_user_cart($db, $user_id, $item_id){
@@ -46,12 +45,12 @@ function get_user_cart($db, $user_id, $item_id){
     ON
       carts.item_id = items.item_id
     WHERE
-      carts.user_id = :user_id
+      carts.user_id = {$user_id}
     AND
-      items.item_id = :item_id
+      items.item_id = {$item_id}
   ";
-  $params=[':user_id'=>$user_id,':item_id'=>$item_id];
-  return fetch_query($db, $sql, $params);
+
+  return fetch_query($db, $sql);
 
 }
 
@@ -71,10 +70,10 @@ function insert_cart($db, $user_id, $item_id, $amount = 1){
         user_id,
         amount
       )
-    VALUES(:item_id, :user_id, :amount)
+    VALUES({$item_id}, {$user_id}, {$amount})
   ";
-  $params=[':item_id'=>$item_id,':user_id'=>$user_id,':amount'=>$amount];
-  return execute_query($db, $sql, $params);
+
+  return execute_query($db, $sql);
 }
 
 function update_cart_amount($db, $cart_id, $amount){
@@ -82,13 +81,12 @@ function update_cart_amount($db, $cart_id, $amount){
     UPDATE
       carts
     SET
-      amount = :amount
+      amount = {$amount}
     WHERE
-      cart_id = :cart_id
+      cart_id = {$cart_id}
     LIMIT 1
   ";
-  $params=[':amount'=>$amount, 'cart_id'=>$cart_id];
-  return execute_query($db, $sql, $params);
+  return execute_query($db, $sql);
 }
 
 function delete_cart($db, $cart_id){
@@ -96,11 +94,11 @@ function delete_cart($db, $cart_id){
     DELETE FROM
       carts
     WHERE
-      cart_id = :cart_id
+      cart_id = {$cart_id}
     LIMIT 1
   ";
-  $params=[':cart_id'=>$cart_id];
-  return execute_query($db, $sql, $params);
+
+  return execute_query($db, $sql);
 }
 
 function purchase_carts($db, $carts){
@@ -125,10 +123,10 @@ function delete_user_carts($db, $user_id){
     DELETE FROM
       carts
     WHERE
-      user_id = :user_id
+      user_id = {$user_id}
   ";
-  $params=['user_id'=>$user_id];
-  execute_query($db, $sql, $params);
+
+  execute_query($db, $sql);
 }
 
 

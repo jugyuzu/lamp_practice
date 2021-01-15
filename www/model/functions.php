@@ -135,33 +135,6 @@ function is_valid_upload_image($image){
   return true;
 }
 function h($str){
-  for($i=0; $i<count($str); $i++){
-    $str[$i]["name"]=htmlspecialchars($str[$i]["name"],ENT_QUOTES,'UTF-8');
-    $str[$i]["stock"]=htmlspecialchars($str[$i]["stock"],ENT_QUOTES,'UTF-8');
-    $str[$i]["price"]=htmlspecialchars($str[$i]["price"],ENT_QUOTES,'UTF-8');
-  }
-  return $str;
+  return htmlspecialchars($str,ENT_QUOTES,'UTF-8');
 }
 
-function strip_tag($str){
-  for($i=0; $i<count($str); $i++){
-    $str[$i]["name"]=strip_tags($str[$i]["name"]);
-    $str[$i]["stock"]=strip_tags($str[$i]["stock"]);
-    $str[$i]["price"]=strip_tags($str[$i]["price"]);
-  }
-  return $str;
-}
-
-function escape($items){
-  foreach($items as $item){
-    foreach($item as $key => $value){
-      if($key === "status"){
-        $item[$key]=$value;
-      }else {
-        $item[$key]=htmlspecialchars($value,ENT_QUOTES,'UTF-8');
-      }
-    }
-    $item_array[]=$item;
-  }
-  return $item_array;
-}

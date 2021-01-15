@@ -13,9 +13,9 @@ if(is_logined() === false){
 
 $db = get_db_connect();
 $user = get_login_user($db);
-//$_POST[cart_id]を取得
+
 $cart_id = get_post('cart_id');
-//$cart_idに応じて商品を削除
+
 if(delete_cart($db, $cart_id)){
   set_message('カートを削除しました。');
 } else {
