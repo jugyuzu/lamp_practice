@@ -8,13 +8,13 @@ session_start();
 if(is_logined() === true){
   redirect_to(HOME_URL);
 }
-
+//postを取得
 $name = get_post('name');
 $password = get_post('password');
 $password_confirmation = get_post('password_confirmation');
 
 $db = get_db_connect();
-
+//nameとpswを評価
 try{
   $result = regist_user($db, $name, $password, $password_confirmation);
   if( $result=== false){

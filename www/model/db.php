@@ -31,7 +31,8 @@ function fetch_all_query($db, $sql, $params = array()){
   try{
     $statement = $db->prepare($sql);
     $statement->execute($params);
-    return $statement->fetchAll();
+    $items=$statement->fetchAll();
+    return escape($items);
   }catch(PDOException $e){
     set_error('データ取得に失敗しました。');
   }

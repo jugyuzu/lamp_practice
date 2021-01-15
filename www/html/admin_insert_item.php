@@ -22,9 +22,9 @@ $name = get_post('name');
 $price = get_post('price');
 $status = get_post('status');
 $stock = get_post('stock');
-
+//$_FILEを取得
 $image = get_file('image');
-
+//ファイルがhttpで送られられたものか、型を調べる。is_positive_integerで価格、在庫が整数か確認is_valid_length
 if(regist_item($db, $name, $price, $stock, $status, $image)){
   set_message('商品を登録しました。');
 }else {

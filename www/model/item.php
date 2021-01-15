@@ -16,10 +16,10 @@ function get_item($db, $item_id){
     FROM
       items
     WHERE
-      item_id = {$item_id}
+      item_id = :item_id
   ";
-
-  return fetch_query($db, $sql);
+  $params=[':item_id'=>$item_id];
+  return fetch_query($db, $sql, $params);
 }
 
 function get_items($db, $is_open = false){
@@ -39,7 +39,7 @@ function get_items($db, $is_open = false){
       WHERE status = 1
     ';
   }
-
+  
   return fetch_all_query($db, $sql);
 }
 
@@ -82,10 +82,10 @@ function insert_item($db, $name, $price, $stock, $filename, $status){
         image,
         status
       )
-    VALUES('{$name}', {$price}, {$stock}, '{$filename}', {$status_value});
+    VALUES(:name, :price, :stock, :filename, :status);
   ";
-
-  return execute_query($db, $sql);
+  $params=[':name'=>$name, ':price'=>$price, ':stock'=>$stock, ':filename'=>$filename, ':status'=>$status];
+  return execute_query($db, $sql, $params);
 }
 
 function update_item_status($db, $item_id, $status){
@@ -93,27 +93,29 @@ function update_item_status($db, $item_id, $status){
     UPDATE
       items
     SET
-      status = {$status}
+      status = :status
     WHERE
-      item_id = {$item_id}
+      item_id = :item_id
     LIMIT 1
   ";
-  
-  return execute_query($db, $sql);
+  $params=[':status'=>$status, ':item_id'=>$item_id];
+  return execute_query($db, $sql, $params);
 }
 
 function update_item_stock($db, $item_id, $stock){
+  //if(is_valid_item_price($stock) !== FALSE){
   $sql = "
     UPDATE
       items
     SET
-      stock = {$stock}
+      stock = :stock
     WHERE
-      item_id = {$item_id}
+      item_id = :item_id
     LIMIT 1
   ";
-  
-  return execute_query($db, $sql);
+  $params=[':stock'=>$stock,':item_id'=>$item_id];
+  return execute_query($db, $sql, $params);
+  //}
 }
 
 function destroy_item($db, $item_id){
@@ -136,11 +138,11 @@ function delete_item($db, $item_id){
     DELETE FROM
       items
     WHERE
-      item_id = {$item_id}
+      item_id = :item_id
     LIMIT 1
   ";
-  
-  return execute_query($db, $sql);
+  $params=[':item_id'=>$item_id];
+  return execute_query($db, $sql, $params);
 }
 
 
