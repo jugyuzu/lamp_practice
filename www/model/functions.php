@@ -165,3 +165,31 @@ function escape($items){
   }
   return $item_array;
 }
+
+function get_csrf_token(){
+  return sha1(uniqid(mt_rand(), true));
+}
+
+function is_valid_csrf_token($token){
+  if($token === ''){
+    set_error('エラーが発生しました');
+  }else{
+    set_session('token',$token);
+  }
+}
+
+function taken_value_check($post_token,$session_token){
+  if($post_token !== $session_token){
+    delete_session('token');
+    return false;
+  }else{
+    delete_session('token');
+    return true;
+  }
+}
+
+function delete_session($name){
+  if(isset($_SESSION[$name])){
+    $_SESSION[$name]='';
+  }
+}
