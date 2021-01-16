@@ -178,7 +178,7 @@ function is_valid_csrf_token($token){
   }
 }
 
-function taken_value_check($post_token,$session_token){
+function token_value_check($post_token,$session_token){
   if($post_token !== $session_token){
     delete_session('token');
     return false;
