@@ -22,7 +22,5 @@ $items = get_all_items($db);
 
 //tokenの発行
 $token = get_csrf_token();
-//tokenのチェックとsessionに代入
-is_valid_csrf_token($token);
 
 include_once VIEW_PATH . '/admin_view.php';

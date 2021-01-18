@@ -8,6 +8,9 @@ session_start();
 if(is_logined() === true){
   redirect_to(HOME_URL);
 }
+if(is_valid_csrf_token(get_post('token'))===false){
+  redirect_to(LOGIN_URL);
+}
 //postを取得
 $name = get_post('name');
 $password = get_post('password');
@@ -23,9 +26,11 @@ try{
   }
 }catch(PDOException $e){
   set_error('ユーザー登録に失敗しました。');
+  delete_session('csrf_token');
   redirect_to(SIGNUP_URL);
 }
 
 set_message('ユーザー登録が完了しました。');
 login_as($db, $name, $password);
+delete_session('csrf_token');
 redirect_to(HOME_URL);

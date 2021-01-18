@@ -9,7 +9,9 @@ session_start();
 if(is_logined() === false){
   redirect_to(LOGIN_URL);
 }
-
+if(is_valid_csrf_token(get_post('token'))===false){
+  redirect_to(LOGIN_URL);
+}
 $db = get_db_connect();
 
 $user = get_login_user($db);
@@ -27,5 +29,7 @@ if(update_item_stock($db, $item_id, $stock)){
 } else {
   set_error('在庫数の変更に失敗しました。');
 }
+
+delete_session('csrf_token');
 
 redirect_to(ADMIN_URL);

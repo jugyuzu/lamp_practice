@@ -16,4 +16,6 @@ $user = get_login_user($db);
 //statusが1の商品のitem_id,name,stock,price,image,statusを取得
 $items = get_open_items($db);
 
+get_csrf_token();
+
 include_once VIEW_PATH . 'index_view.php';
