@@ -19,8 +19,10 @@ if(is_admin($user) === false){
 }
 //itemsテーブルから商品の情報を取得
 $items = get_all_items($db);
-//html変換
-//$items=h($items);
-//タグ除去
-//$items=strip_tag($items);
+
+//tokenの発行
+$token = get_csrf_token();
+//tokenのチェックとsessionに代入
+is_valid_csrf_token($token);
+
 include_once VIEW_PATH . '/admin_view.php';

@@ -84,7 +84,7 @@ function insert_item($db, $name, $price, $stock, $filename, $status){
       )
     VALUES(:name, :price, :stock, :filename, :status);
   ";
-  $params=[':name'=>$name, ':price'=>$price, ':stock'=>$stock, ':filename'=>$filename, ':status'=>$status];
+  $params=[':name'=>$name, ':price'=>$price, ':stock'=>$stock, ':filename'=>$filename, ':status'=>$status_value];
   return execute_query($db, $sql, $params);
 }
 
