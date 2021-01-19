@@ -167,24 +167,16 @@ function escape($items){
 }
 
 function get_csrf_token(){
-  return sha1(uniqid(mt_rand(), true));
+  $token = sha1(uniqid(mt_rand(), true));
+  set_session('csrf_token',$token);
+  return $token;
 }
 
 function is_valid_csrf_token($token){
   if($token === ''){
     set_error('エラーが発生しました');
   }else{
-    set_session('token',$token);
-  }
-}
-
-function token_value_check($post_token,$session_token){
-  if($post_token !== $session_token){
-    delete_session('token');
-    return false;
-  }else{
-    delete_session('token');
-    return true;
+    return $token===get_session('csrf_token');
   }
 }
 

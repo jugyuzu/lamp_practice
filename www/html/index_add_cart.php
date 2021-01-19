@@ -10,7 +10,9 @@ session_start();
 if(is_logined() === false){
   redirect_to(LOGIN_URL);
 }
-
+if(is_valid_csrf_token(get_post('token'))===false){
+  redirect_to(LOGIN_URL);
+}
 $db = get_db_connect();
 $user = get_login_user($db);
 
@@ -22,5 +24,7 @@ if(add_cart($db,$user['user_id'], $item_id)){
 } else {
   set_error('カートの更新に失敗しました。');
 }
+
+delete_session('csrf_token');
 
 redirect_to(HOME_URL);

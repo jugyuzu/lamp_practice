@@ -17,7 +17,9 @@ $user = get_login_user($db);
 if(is_admin($user) === false){
   redirect_to(LOGIN_URL);
 }
-
+if(is_valid_csrf_token(get_post('token'))===false){
+  redirect_to(LOGIN_URL);
+}
 $item_id = get_post('item_id');
 
 //データベースと画像ファイルの削除ができればtrueがreturnされる
@@ -27,6 +29,6 @@ if(destroy_item($db, $item_id) === true){
   set_error('商品削除に失敗しました。');
 }
 
-
+delete_session('csrf_token');
 
 redirect_to(ADMIN_URL);
