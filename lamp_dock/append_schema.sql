@@ -3,7 +3,6 @@ CREATE TABLE `order_master` (
     `order_id` int(11) NOT NULL AUTO_INCREMENT,
     `user_id` int(11) NOT NULL,
     `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `log_id` int(11) NOT NULL,
     PRIMARY KEY(order_id)
 );
 --注文内容
