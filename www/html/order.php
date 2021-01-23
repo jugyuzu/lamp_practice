@@ -25,5 +25,4 @@ $items = get_order_history($db,$user['user_id']);
 //dd($items);
 //tokenの発行
 $token = get_csrf_token();
-
 include_once VIEW_PATH . 'order_view.php';
