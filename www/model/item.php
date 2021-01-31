@@ -37,6 +37,8 @@ function get_items($db, $is_open = false){
   if($is_open === true){
     $sql .= '
       WHERE status = 1
+      ORDER BY created DESC
+      LIMIT 0,4;
     ';
   }
   
@@ -49,6 +51,10 @@ function get_all_items($db){
 
 function get_open_items($db){
   return get_items($db, true);
+}
+
+function get_item_count($db){
+  return get_all_count($db, true);
 }
 
 function regist_item($db, $name, $price, $stock, $status, $image){
@@ -145,6 +151,95 @@ function delete_item($db, $item_id){
   return execute_query($db, $sql, $params);
 }
 
+function change_line_up($db,$is_open=false,$term,$num){
+  $sql = '
+    SELECT
+      item_id, 
+      name,
+      stock,
+      price,
+      image,
+      status
+    FROM
+      items
+  ';
+  if($is_open === true){
+    $sql .= '
+      WHERE status = 1
+    ';
+  }
+  if($term === 'new'){
+    $sql .='
+      ORDER BY item_id DESC
+    ';
+  }else if($term === 'pricedown'){
+    $sql .='
+      ORDER BY price
+    ';
+  }else{
+    $sql .='
+      ORDER BY price DESC
+    ';
+  }
+    $sql .='
+      LIMIT :num
+    ';
+  $params = [':num'=>$num];
+  
+  return fetch_all_query($db, $sql, $params);
+}
+
+ function change_limit_item($db,$is_open=false,$term,$front){
+  $sql = '
+  SELECT
+    item_id, 
+    name,
+    stock,
+    price,
+    image,
+    status
+  FROM
+    items
+';
+if($is_open === true){
+  $sql .= '
+    WHERE status = 1
+  ';
+}
+if($term === 'new'){
+  $sql .='
+    ORDER BY created DESC
+  ';
+}else if($term === 'pricedown'){
+  $sql .='
+    ORDER BY price
+  ';
+}else{
+  $sql .='
+    ORDER BY price DESC
+  ';
+}
+  $sql .='
+    LIMIT :front, 4;
+  ';
+$params = [':front'=>$front];
+return fetch_all_query($db, $sql, $params);
+ }
+
+function get_all_count($db, $is_open=false){
+  $sql = '
+  SELECT
+    COUNT(item_id) as item_count
+  FROM
+    items
+  ';
+  if($is_open === true){
+    $sql .= '
+      WHERE status = 1;
+    ';
+  }
+  return fetch_query($db, $sql);
+}
 
 // 非DB
 

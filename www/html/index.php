@@ -15,6 +15,8 @@ $db = get_db_connect();
 $user = get_login_user($db);
 //statusが1の商品のitem_id,name,stock,price,image,statusを取得
 $items = get_open_items($db);
+$items_count = get_item_count($db);
+$items_count = ceil($items_count['item_count']/4);
 
 $token=get_csrf_token();
 

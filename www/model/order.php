@@ -60,11 +60,11 @@ require_once MODEL_PATH . 'db.php';
             m.order_id,
             m.created
             FROM 
-                order_master AS m 
-            JOIN 
                 order_content AS c 
+            JOIN 
+                order_master AS m 
             ON 
-                m.order_id=c.order_id 
+                c.order_id=m.order_id 
             WHERE
                 m.user_id=:user AND m.order_id=:id
             GROUP BY
